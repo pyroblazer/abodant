@@ -1,0 +1,85 @@
+
+
+<%= render "partials/navbar" %>
+
+<div class="container" style="margin-top:50px">
+  <div class="card">
+    <% if @property.image_url %>
+      <%= image_tag @property.image_url, :class=>"card-img-top", :style=>"width:300px" %>
+    <% end %>
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= @property.address %>
+      </h5>
+      <p>
+        <strong>Address :</strong>
+        <%= @property.address %>
+      </p>
+
+
+      <p> <strong>Owner : </strong>
+        <%= @property.owner %>
+      </p>
+
+      <p>
+        <strong>Price :</strong>
+        <%= @property.price.to_s %>
+      </p>
+
+      <p>
+        <strong>Size :</strong>
+        <%= @property.size.to_s %>
+      </p>
+
+      <p>
+        <strong>Floors :</strong>
+        <%= @property.floors.to_s %>
+      </p>
+
+      <p>
+        <strong>Basement :</strong>
+        <%= @property.basement.to_s %>
+      </p>
+
+
+      <p>
+        <strong>Style :</strong>
+        <%= @property.style %>
+      </p>
+
+      <p>
+        <strong>Company :</strong>
+        <% if @property.company_id != nil %>
+          <%= Company.find(@property.company_id).name %>
+        <% end %>
+      </p>
+
+      <% if current_user.is_admin || ( current_user.is_realtor && current_user.company_id == @property.company_id ) %>
+        <%= form_with(model: @property, local: true, :html => {multipart: true}) do |form| %>
+          <div class="form-group">
+            <%= form.file_field :image %>
+          </div>
+          <div class="form-group">
+            <%= form.submit :class=> "btn btn-success" %>
+          </div>
+        <% end %>
+      <% end %>
+      <% if current_user.is_admin || ( current_user.is_hunter ) %>
+      <%= link_to 'Interested', potential_buyers_path(property_id: @property.id), :method => 'post', :class=>"btn btn-success" %>
+       <% end %>
+
+      <% if current_user.is_realtor && session[:role] == 'realtor' && current_user.company_id == @property.company_id %>
+        <%= link_to 'List of Potential Buyers', potential_buyers_path(property_id: @property.id), :method => 'get', :class=>"btn btn-success" %>
+      <% end %>
+
+      <%= link_to 'Back', properties_path, :class=>"btn btn-secondary" %>
+
+    </div>
+  </div>
+</div>
+
+<%# Show only to users who have not sent the query yet %>
+<% if (current_user.is_hunter && Query.where(property_id: @property.id, user_id: current_user.id).empty?) || current_user.is_admin %>
+  <%= render 'queryform' %>
+<% end %> 
+

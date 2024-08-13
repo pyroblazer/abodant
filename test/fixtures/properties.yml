@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+property_one:
+  address: "789 Elm St, Anytown, USA"
+  size: 1500
+  style: 0  # townhouse
+  price: 300000
+  floors: 2
+  basement: true
+  owner: "John Doe"
+  year_built: 2005
+  company: company_one
+  created_by: 1  # Assuming `user_one` is the creator
+
+property_two:
+  address: "101 Maple St, Anytown, USA"
+  size: 2500
+  style: 1  # apartment
+  price: 450000
+  floors: 3
+  basement: false
+  owner: "Jane Smith"
+  year_built: 2010
+  company: company_two
+  created_by: 2  # Assuming `user_two` is the creator

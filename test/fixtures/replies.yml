@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+reply_one:
+  query: query_one
+  user: user_two  # Assuming `user_two` is replying
+  message: "The property is 10 years old."
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+
+reply_two:
+  query: query_two
+  user: user_one  # Assuming `user_one` is replying
+  message: "Yes, the property is available."
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
